@@ -1,2 +1,2 @@
 # Introduction
-This folder 
+This folder is mainly about HTML and CSS.
