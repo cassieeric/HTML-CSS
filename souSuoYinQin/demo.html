@@ -1,0 +1,82 @@
+﻿<html>
+<head>
+  <title></title>
+  <script src='jquery-3.2.1.min.js'></script>
+  <style type="text/css">
+      *{
+        margin:0;
+        padding:0
+      }
+      input{
+         width:400px;
+         height:30px
+      }
+      span{
+        position:absolute;
+        background-color:red;
+        border:1px solid gray;
+        width:60px;
+        height:30px;
+        text-align:center
+      }
+    span:hover{
+         background-color:blue;
+         cursor: pointer;
+      }
+    ol{
+        background:orange;
+        opacity:0.7;
+        display:none; /* 隐藏有序列表 */
+        position:absolute;
+        width:500px;
+        height: 400px;
+    }
+    ol>li{
+        position: relative;
+        letter-spacing: 3px;
+        margin-left: 50px;
+        margin-top:6px;
+    }
+
+  </style>
+</head>
+<body>
+<input type="text" name="" placeholder="请输入要搜索的内容">
+<span onclick='window.location.reload()'>search</span> <!-- 点击刷新 -->
+<ol></ol>
+</body>
+<script>  
+function getlist(wd){    /*获取下拉列表*/
+    var script=document.createElement('script');  /*创建script的标签*/
+    script.id='jsonp';   /*设置id为jsonp*/
+    script.src='https://www.baidu.com/sugrec?prod=pc&cb=getData&wd='+wd; /* 设置它的地址*/
+    document.body.appendChild(script);   /*添加script元素到body中*/
+  }
+function getData(data){  /*获取数据*/
+      var script=document.querySelector('#jsonp'); /*选择id为jsonp的元素*/
+      script.parentNode.removeChild(script);  /*从这个元素的父元素中删除这个元素*/
+      $('ol').html('');  /* 设置有序列表的值为空*/
+      var da=data.g;   /* 获取搜索的结果*/
+   if(da){                     /*结果存在的话就将结果放到li标签中*/
+    da.forEach(function(item,index){   
+      $('<li><a target="_blank" href ="https://www.baidu.com/s?wd='+item.q+'">'+item.q+'</a></li>').appendTo('ol');
+      })
+     }
+  }
+
+
+  /* 判断键盘是否按下*/
+    $('input:text').keyup(function(){
+       var wd=$(this).val();  /* 输入框的值*/
+       if(wd==''){             /*如果值是空，那么就隐藏，否则显示*/
+           $('ol').css('display','none');
+           $('ol').css('zIndex',-10);
+        }else{
+           $('ol').css('display','block');
+        $('ol').css('zIndex',20);
+        }
+          getlist(wd);
+    });
+    </script>
+</html>
+
