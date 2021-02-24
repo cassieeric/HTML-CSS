@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#box{
+				width: 800px;
+				height: 360+70px;
+				display: flex;
+				text-align: center;
+				flex-direction: column;
+				justify-content: center;
+			}
+			#box_01{
+				width: 800px;
+				height: 70px;
+				color: #0086B3;
+			}
+			img{
+				width: 400px;
+				height: 300px;
+			}
+			#box_02{
+				width: 800px;
+				height: 310px;
+			}
+			#box_03{
+				width: 800px;
+				height: 50px;
+			}
+			#res{
+				width: 800px;
+				height: 100px;
+				font-weight: bold;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div id="box_01">
+				<h2>限定输入内容</h2>
+			</div>
+			<div id="box_02">
+				<img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2705475948,1610178181&fm=26&gp=0.jpg" />
+			</div>
+			<div id="box_03">
+			<form id="form">
+				年份<input type="text" name="year" />
+				月份<input type="text" name="month" />
+			<input type="submit" value="查询" />
+			</form>
+		</div>
+		</div>
+		<div id="res"></div>
+		<script>
+			var f=document.getElementById('form')
+			var res=document.getElementById('res')
+			var ipc=document.getElementsByTagName('input')
+			f.onsubmit=function(){
+				return chooseYear(ipc.year)&&chooseMonth(ipc.month)
+			};
+			function chooseYear(y){
+				if(!y.value.match(/^\d{4}$/)){
+					y.style.borderColor='yellow';
+					res.innerHTML='您的输入有误，年份需要4位数字';
+					return false;
+				}
+				alert('年份格式输入正确')
+				return true;
+			}
+			function chooseMonth(m){
+				if(!m.value.match(/^((0?[1-9])|(1[012]))$/)){
+					m.style.borderColor='yellow';
+					res.innerHTML='您的输入有误，月份1~12范围内'
+					return false;
+				}
+				alert('月份格式输入正确')
+				return true;
+			}
+			//年份和月份添加单击事件
+			ipc.year.onfocus=function(){
+				this.style.borderColor='blue'
+			}
+			ipc.month.onfocus=function(){
+				this.style.borderColor='blue'
+			}
+			//优化用户的体验
+			ipc.year.onblur=function(){
+				this.value=this.value.trim();
+				chooseYear(this);
+			}
+			ipc.month.onblur=function(){
+				this.value=this.value.trim();
+				chooseMonth(this);
+			}
+		</script>
+	</body>
+</html>
