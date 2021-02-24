@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#box{
+				margin-top: 20px;
+				width: 800px;
+				height: 400px;
+				display: flex;
+				text-align: center;
+				flex-direction: column;
+				justify-content: center;
+			}
+			#form{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			#btn{
+				display: flex;
+				text-align: center;
+				flex-direction: row;
+				justify-content: center;
+			}
+			#user{
+				margin-bottom: 10px;
+			}
+			#btn_ok{
+				margin-top: 10px;
+				margin-right: 20px;
+			}
+			#show{
+				margin-top: 10px;
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+		<div id="img">
+			<img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2705475948,1610178181&fm=26&gp=0.jpg" />
+		</div>
+		<div id="form">
+			<label>账号：<input type="text" id="user"></label>
+			<label>密码：<input type="text" id="pwd"></label>
+			<div id="btn">
+			<button id="btn_ok">登录</button>
+			<button id="btn_ok">注册</button>
+			</div>
+		</div>
+		<div id="show"></div>
+		</div>
+		<script>
+			window.onload=function(){
+				addBlur($('user'));
+				addBlur($('pwd'));
+			}
+			function $(id){
+				return document.getElementById(id);
+			}
+			function addBlur(m){
+				m.onblur=function(){
+					isEmpty(this);
+				}
+			}
+			function isEmpty(m){
+				if(m.value===''){
+					$('show').style.display='block';
+					$('show').innerHTML='您输入的内容不能为空！';
+				}else{
+					$('show').style.display='none';
+					
+				}
+			}
+			$('btn_ok').onclick=function(){
+				if(($('user').value=='abc')&&($('pwd').value=='123')){
+					$('show').style.display='block';
+					$('show').innerHTML='登录成功！';
+				}else{
+					$('show').style.display='block';
+					$('show').innerHTML='账号或密码错误！';
+				}
+			}
+		</script>
+	</body>
+</html>
